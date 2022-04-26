@@ -24,6 +24,7 @@ function App() {
 
 	const loadFromLocalStorage = () => {
 		const jobAppState = JSON.parse(localStorage.getItem('jobAppState'));
+		// updateWithJsonFile(_jobs, jobAppState);
 		if (jobAppState === null) {
 			setDisplayKind('full');
 			setJobs(_jobs);
