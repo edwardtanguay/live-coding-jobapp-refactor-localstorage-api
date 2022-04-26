@@ -1,4 +1,15 @@
-export const JobsFull = ({jobs, handleStatusChange}) => {
+export const JobsFull = ({ jobs, handleStatusChange }) => {
+	const skillDefinitions = [
+		{
+			title: 'PHP',
+			description: 'an older server-side language',
+		},
+		{
+			title: 'Rust',
+			description: 'a new, popular lower-level language',
+		},
+	];
+
 	return (
 		<div className="jobs">
 			{jobs.map((job, index) => {
@@ -20,6 +31,13 @@ export const JobsFull = ({jobs, handleStatusChange}) => {
 							{job.status !== 'declined' && (
 								<div className="bulkText">{job.bulkText}</div>
 							)}
+							<div className="skillDefinitions">
+								<ul>
+									{skillDefinitions.map((sd, index) => {
+										return <li key={index}>nnn</li>;
+									})}
+								</ul>
+							</div>
 						</div>
 					</div>
 				);

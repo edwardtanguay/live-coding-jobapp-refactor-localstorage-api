@@ -4,15 +4,20 @@ import _jobs from './data/jobs.json';
 import { JobsFull } from './components/JobsFull';
 import { JobsList } from './components/JobsList';
 
+const techItemsUrl = 'https://edwardtanguay.netlify.app/share/techItems.json';
+
 _jobs.forEach((job) => {
 	job.status = 'accepted';
 });
 
 const statuses = ['send', 'wait', 'interview', 'declined', 'accepted'];
 
+let _techItems = [{}];
+
 function App() {
 	const [displayKind, setDisplayKind] = useState('');
 	const [jobs, setJobs] = useState([]);
+	const [techItems, setTechItems] = useState([]);
 
 	const saveToLocalStorage = () => {
 		const jobAppState = {
@@ -34,7 +39,16 @@ function App() {
 		}
 	};
 
+	const loadTechItems = () => {
+		(async () => {
+			const response = await fetch(techItemsUrl);
+			_techItems = await response.json();
+			setTechItems(_techItems);
+		})();
+	};
+
 	useEffect(() => {
+		loadTechItems();
 		loadFromLocalStorage();
 	}, []);
 
@@ -60,6 +74,7 @@ function App() {
 	return (
 		<div className="App">
 			<h1>Job Application Process</h1>
+			<div>techitems: {techItems.length}</div>
 			<button onClick={handleToggleView}>Toggle View</button>
 			{displayKind === 'full' ? (
 				<JobsFull jobs={jobs} handleStatusChange={handleStatusChange} />
